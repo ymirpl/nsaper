@@ -64,7 +64,7 @@ public class GUIWindow extends JFrame {
 			}
 		});
 		
-		JMenu help = new JMenu("Pomoc");
+		JMenu help = new JMenu("Pomoc"); //@TODO trza by dopisac panelik
 		JMenu newgame = new JMenu("Nowa gra");
 		
 		JMenuItem  easy = new JMenuItem("Łatwa");

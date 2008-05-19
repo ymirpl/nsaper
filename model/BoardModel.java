@@ -74,6 +74,8 @@ public class BoardModel {
 			for (int j = 0; j < size; j++) {
 		//@TODO Moze zamiast ifow lapac wyjatek na pale?		
 				byte counter = 0; // zliczanie przyleglych bomb
+				
+				
 				if (!board[i][j].isBomb()) {
 					if ((i - 1) >= 0 && (j - 1) >= 0) {
 						if (board[i - 1][j - 1].isBomb() == true)

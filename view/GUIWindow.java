@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -27,6 +28,8 @@ public class GUIWindow extends JFrame {
 	private FieldButton[][] grid;
 
 	private JPanel jContentPane = null;
+	private ImageIcon bombIcon = new ImageIcon("view/bomb.png");
+	private ImageIcon flagIcon = new ImageIcon("view/flag.png");
 
 	/**
 	 * Konstruktor domyslny okienka
@@ -162,6 +165,7 @@ public class GUIWindow extends JFrame {
 
 	/**
 	 * inicjalizuje panel z gra o odpowiedniej wielkosci
+	 * 
 	 * @return javax.swing.JPanel
 	 */
 	private JPanel getJContentPane(int x, int y) {
@@ -177,19 +181,26 @@ public class GUIWindow extends JFrame {
 		FieldIs[][] board = game.makeArray();
 		for (int y = 0; y < board.length; y++) {
 			for (int x = 0; x < board[0].length; x++) {
-				if (board[x][y] == FieldIs.FLAG && game.isValid())
-					grid[x][y].setText("F");
+				if (board[x][y] == FieldIs.FLAG && game.isValid()) {
+					grid[x][y].setText("");
+					grid[x][y].setIcon(flagIcon);
+				}
 				else if (board[x][y] == FieldIs.FLAG && !game.isValid())
 					grid[x][y].setBackground(Color.green);
-				else if (board[x][y] == FieldIs.BOMB_FLAG && game.isValid())
-					grid[x][y].setText("F");
-				else if (board[x][y] == FieldIs.BOMB_FLAG && !game.isValid())
-					grid[x][y].setBackground(Color.pink);
-				else if (board[x][y] == FieldIs.HIDDEN)
+				else if (board[x][y] == FieldIs.BOMB_FLAG && game.isValid()) { 
+					grid[x][y].setText("");
+					grid[x][y].setIcon(flagIcon);
+				}
+					else if (board[x][y] == FieldIs.BOMB_FLAG && !game.isValid())
+					grid[x][y].setBackground(Color.red);
+				else if (board[x][y] == FieldIs.HIDDEN) {
 					grid[x][y].setText(" ");
-				else if (board[x][y] == FieldIs.BOMB)
-					grid[x][y].setText("B");
-
+					grid[x][y].setIcon(null);
+				}
+				else if (board[x][y] == FieldIs.BOMB) {
+					grid[x][y].setText("");
+					grid[x][y].setIcon(bombIcon);
+				}
 				else if (board[x][y] == FieldIs.ONE)
 					grid[x][y].setText("1");
 				else if (board[x][y] == FieldIs.TWO)
@@ -208,7 +219,7 @@ public class GUIWindow extends JFrame {
 					grid[x][y].setText("8");
 				else
 					grid[x][y].setText(" ");
-				if (board[x][y] != FieldIs.HIDDEN && board[x][y] != FieldIs.FLAG  && board[x][y] != FieldIs.BOMB_FLAG)
+				if (board[x][y] != FieldIs.HIDDEN && board[x][y] != FieldIs.FLAG  && board[x][y] != FieldIs.BOMB_FLAG) 
 					grid[x][y].setBackground(Color.white);
 			}
 		}

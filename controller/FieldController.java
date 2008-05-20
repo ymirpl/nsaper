@@ -2,7 +2,16 @@ package controller;
 
 import model.BoardModel;
 import model.FieldModel;
+import model.Level;
 
+/**
+ * Kontoler pola. 
+ * 
+ * Zawiera metody pozwalające na interkcję z polem zgodnie z zasadmi gry. 
+ * @author Marcin Mincer
+ * @since RC1
+ *
+ */
 public class FieldController {
 	
 	private BoardModel board;
@@ -10,7 +19,7 @@ public class FieldController {
 	private boolean isValid = true;
 	
 	/**
-	 * Domyslny konstruktor kontolera pola (i calej gry)
+	 * Domyslny konstruktor kontolera pola (i całej gry).
 	 *
 	 */
 	public FieldController() {
@@ -19,68 +28,66 @@ public class FieldController {
 	
 	/**
 	 * Konstruktor z parametrami, ktory przekazuje je do tworzonego modelu planszy
-	 * @param a wymiar planszy
-	 * @param l poziom trudnosci
-	 * @see Model#Level
+	 * @param l {@link Level} poziom trudnosci
 	 */
 	public FieldController(model.Level l) {
-		board = new BoardModel(25, l);
+		board = new BoardModel(25, l); // 25 to sztywny rozmiar planszy
 	}
 	
 	/**
 	 * Dotyka pola
 	 * Odkrywa pola zgodnie z zasadami, zwraca false, jezli zyjemy nadal, true, jak dotknelismy bomby
-	 * @param x numer wiersza 
-	 * @param y numer kolumny
-	 * @return flase: nie bomba, true: bomba
+	 * @param x int numer wiersza 
+	 * @param y int numer kolumny
 	 */
-	public boolean touch(int x, int y) { // @TODO co tak serio tu trzeba rzucac?
+	public void touch(int x, int y) { 
 		FieldModel f = board.getField(x, y);
 			
 		if(f.isBomb()) {
 			showAll();
 			isValid = false; // nie mozna juz dalej grac
-			return true;
-		}
+			}
 		
 		reveal(x, y);
-		return false;
 	}
 	
 	/**
 	 * Metoda odkrywa rekursywnie pola, wywolywana z touch
-	 * @param x kolumna
-	 * @param y wiersz
+	 * 
+	 * @param x
+	 *            int kolumna
+	 * @param y
+	 *            int wiersz
 	 */
-	private void reveal(int x, int y)  {
+	private void reveal(int x, int y) {
 		FieldModel f = board.getField(x, y);
 		if (!f.isBomb() && !f.isVisible()) {
 			f.show();
 			if (f.getDigit() == 0) { // odkrywaj dalej rekursywnie
 				if ((y - 1) >= 0 && (x - 1) >= 0) {
-					reveal(x-1,y-1);
+					reveal(x - 1, y - 1);
 				}
-				if ((y - 1) >= 0 ) {
-					reveal(x, y-1);
+				if ((y - 1) >= 0) {
+					reveal(x, y - 1);
 				}
 				if ((x - 1) >= 0) {
-					reveal(x-1, y);
+					reveal(x - 1, y);
 				}
-				
+
 				if ((y + 1) < board.getSize() && (x + 1) < board.getSize()) {
-					reveal(x+1, y+1);
+					reveal(x + 1, y + 1);
 				}
 				if ((x + 1) < board.getSize()) {
-					reveal(x+1, y);
+					reveal(x + 1, y);
 				}
 				if ((y + 1) < board.getSize()) {
-					reveal(x, y+1);
+					reveal(x, y + 1);
 				}
-				
+
 				if ((y + 1) < board.getSize() && (x - 1) >= 0)
-					reveal(x-1, y+1);
+					reveal(x - 1, y + 1);
 				if ((y - 1) >= 0 && (x + 1) < board.getSize())
-					reveal(x+1, y-1);
+					reveal(x + 1, y - 1);
 			}
 		}
 		
@@ -88,8 +95,8 @@ public class FieldController {
 	
 	/**
 	 * Flaguje co bez flagi, zabiera flage tam, gdzie jest
-	 * @param x kolumna
-	 * @param y rzad
+	 * @param x int kolumna
+	 * @param y int rzad
 	 */
 	public void flag(int x, int y) {
 		FieldModel f = board.getField(x, y);
@@ -100,9 +107,10 @@ public class FieldController {
 	}
 
 	/**
-	 * Tworzy tablice wartosci enum FieldIs, ktora bedzie przekazana do widoku.
-	 * Jest to jednyna informacja o stanie gry dostepna dla widoku.
-	 * @return Fieldis[][] tablica mowiaca co widac w danym polu
+	 * Tworzy tablicę wartości enum FieldIs, która bedzię przekazana do widoku.
+	 * 
+	 * Jest to jedyna informacja o stanie gry dostępna dla widoku.
+	 * @return {@link FieldIs}[][] tablica mowiaca co widac w danym polu
 	 */
 	public FieldIs[][] makeArray() {
 		FieldIs[][] a = new FieldIs[board.getSize()][board.getSize()];
@@ -146,7 +154,9 @@ public class FieldController {
 	}
 	
 	/**
-	 * Oblicza liczbe punktow. +1 za flage na bombie, -2 za flage na pustym
+	 * Oblicza liczbę punktów. 
+	 * 
+	 * +1 za flagę na bombie, -2 za flagę na pustym. Nie opłaca się flagować na ślepo.
 	 * @return short liczba punktow
 	 */
 	public short computeScore() {
@@ -164,8 +174,7 @@ public class FieldController {
 	}
 	
 	/**
-	 * Metoda odkrywa cala plansze (na koniec gry)
-	 *
+	 * Metoda odkrywa całą planszę (na koniec gry). 
 	 */
 	public void showAll() {
 		FieldModel f;
@@ -178,14 +187,16 @@ public class FieldController {
 	}
 	
 	/**
-	 * @return wymiar planszy
+	 * Getter rozmiaru planszy. 
+	 * @return int wymiar planszy
 	 */
 	public int getSize() {
 		return board.getSize();
 	}
 	
 	/**
-	 * @return czy plansza jeszcze gra
+	 * Sprawdza, czy gra jest jeszcze ważna (nie zakończona). 
+	 * @return boolean czy plansza jeszcze gra
 	 */
 	public boolean isValid() {
 		return isValid;

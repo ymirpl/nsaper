@@ -3,11 +3,22 @@ package view;
 import model.HiScoreModel;
 import controller.FieldIs;
 
+/**
+ * Klasa z metodą main. Podstawowy typ widoku (konsola). 
+ * @author Marcin Mincer
+ * @since RC1
+ *
+ */
 public class Console {
 
 
 	public static HiScoreModel hiScore = new HiScoreModel(); 
 	
+	@Deprecated
+	/**
+	 * Drukuje planszę do gry w konsoli. Używana tylko jako debug. 
+	 * @param board {@link FieldIs}[][] plansza
+	 */
 	static void print(FieldIs board[][]) {
 		for (int y = 0; y < board.length; y++) {
 			for (int x = 0; x < board[0].length; x++) {
@@ -42,9 +53,13 @@ public class Console {
 			System.out.println(""); 
 		}
 	}
+	/**
+	 * Metoda main, wywołuje okno Swing
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
-		
+		// okno swing uruchamiane w nowym wątku
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				GUIWindow w = new GUIWindow();

@@ -4,9 +4,9 @@ import javax.swing.JButton;
 
 /**
  * Klasa rozszerza normalny swingowy przycisk, w celu przechowywania w nim informacji
- * o poloezniu na planszy gry. 
- * @author ymir
- *
+ * o położeniu na planszy gry. 
+ * @author Marcin Mincer
+ * @since RC1
  */
 public class FieldButton extends JButton {
 
@@ -19,8 +19,8 @@ public class FieldButton extends JButton {
 	
 	/**
 	 * Konstruktor, jako argumenty pobiera koordynaty przycisku na planszy
-	 * @param x wiersz
-	 * @param y kolumna
+	 * @param x int wiersz
+	 * @param y int kolumna
 	 */
 	public FieldButton(int x, int y) {
 		super();

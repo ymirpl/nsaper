@@ -1,8 +1,11 @@
 package model;
 /**
  * Klasa reprezentująca pojedyńcze pole w grze
+ * 
+ * Zawiera metody pozwalające na odczytnie i zmian stanu pola gry. 
  * @author ymir
- *
+ * @since RC1
+ * @see BoardModel
  */
 public class FieldModel {
 	/**
@@ -27,28 +30,32 @@ public class FieldModel {
 	
 	
 	/**
-	 * @return the digit
+	 * Getter cyferki na polu. 
+	 * @return byte cyferka na polu
 	 */
 	public byte getDigit() {
 		return digit;
 	}
 
 	/**
-	 * @param digit the digit to set
+	 * Setter cyferki na polu. 
+	 * @param byte cyferka
 	 */
 	void setDigit(byte digit) {
 		this.digit = digit;
 	}
 
 	/**
-	 * @return the isBomb
+	 * Czy pole jest bombą?
+	 * @return boolean true jeżeli jest bombą
 	 */
 	public boolean isBomb() {
 		return isBomb;
 	}
 
 	/**
-	 * @param isBomb the isBomb to set
+	 * Ustawia bombę
+	 * @param boolean true jeżeli ma być bombą
 	 */
 	void setBomb(boolean isBomb) {
 		this.isBomb = isBomb;
@@ -56,28 +63,31 @@ public class FieldModel {
 
 
 	/**
-	 * @return the isFlagged
+	 * Czy jest oflagowane?
+	 * @return boolean true jeżeli jest
 	 */
 	public boolean isFlagged() {
 		return isFlagged;
 	}
 
 	/**
-	 * @param isFlagged the isFlagged to set
+	 * Nadaje/zabiera flagę
+	 * @param boolean czy ma być flaga
 	 */
 	public void setFlagged(boolean isFlagged) {
 		this.isFlagged = isFlagged;
 	}
 
 	/**
-	 * @return the isVisible
+	 * Czy pole jest odkryte (widoczne)?
+	 * @return boolean true jeżeli jest widoczne
 	 */
 	public boolean isVisible() {
 		return isVisible;
 	}
 
 	/**
-	 * Odkrywa pole
+	 * Odkrywa pole (isVisible staje się true)
 	 */
 	public void show() {
 		this.isVisible = true;
@@ -85,11 +95,12 @@ public class FieldModel {
 
 	/**
 	 * Domyślny konstruktor
+	 * 
+	 * Produkuje pole bez bomby, cyfry ni flagi
 	 */
 	public FieldModel() {
 		this.digit = 0;
 		this.isBomb = false;
-		//this.isVisible = false;
 		this.isVisible = false;
 		this.isFlagged = false;
 	}

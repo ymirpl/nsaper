@@ -21,74 +21,102 @@ import model.HiScoreRowModel;
 import controller.FieldController;
 import controller.FieldIs;
 
+/**
+ * Klasa jest Swingowym/okienowym interfejsem do gry. 
+ * @author Marcin Mincer
+ * @since RC1
+ *
+ */
 public class GUIWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private static FieldController game = new FieldController(); // domysla gra na pierwsze uruchomienie
-	private FieldButton[][] grid;
+	private FieldButton[][] grid; // sitaka przyciskow
 
 	private JPanel jContentPane = null;
-	private ImageIcon bombIcon = new ImageIcon("view/bomb.png");
-	private ImageIcon flagIcon = new ImageIcon("view/flag.png");
+	private ImageIcon bombIcon = new ImageIcon("view/bomb.png"); // ikonka bomby
+	private ImageIcon flagIcon = new ImageIcon("view/flag.png"); // ikonka flagi
 
 	/**
 	 * Konstruktor domyslny okienka
 	 */
 	public GUIWindow() {
 		super();
-		this.setSize(800, 600);
+		//this.setSize(800, 600);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		initialize();
 		
 		// ustawiamy menuski
 		JMenuBar menuBar = new JMenuBar();
 		JMenu saper = new JMenu("Saper");
 		
-		JMenuItem zakoncz = new JMenuItem("Skończone"); // zakoczone gre, czas dopisac do hiscore
+		JMenuItem zakoncz = new JMenuItem("Skończone"); // zakoczone gre, czas
+														// dopisac do hiscore
 		zakoncz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				if(!game.isValid()) {
-					JOptionPane.showMessageDialog(null, "Nie można kończyć po śmierci :P", "Błąd!", JOptionPane.ERROR_MESSAGE); 
-				return; 
+
+				if (!game.isValid()) {
+					JOptionPane.showMessageDialog(null,
+							"Nie można kończyć po śmierci :P", "Błąd!",
+							JOptionPane.ERROR_MESSAGE);
+					return;
 				}
 				int score = game.computeScore(); // obliczamy wynik
 				game.setValid(false); // koniec gry
-				game.showAll();
+				game.showAll(); // odslon plansze
 				update();
 
-				String name = (String)JOptionPane.showInputDialog( // jak masz na imie?
-	                    "Zdobyto " + score + " punktów!\n Jak masz na imię?", 
-	                    "Ziemowit"
-	            );
-				
-				if(name == null) // jezeli zawodnik nie podal imienia
+				String name = (String) JOptionPane.showInputDialog(
+						// jak masz na imie?
+						"Zdobyto " + score + " punktów!\n Jak masz na imię?",
+						"Ziemowit");
+
+				if (name == null) // jezeli zawodnik nie podal imienia
 					name = "Gracz";
-				Console.hiScore.insertScore(score, name); // dopisujemy go do hajskora
+				Console.hiScore.insertScore(score, name); // dopisujemy go do
+															// hajskora
 			}
 		});
 		
-		JMenu help = new JMenu("Pomoc"); //@TODO trza by dopisac panelik
+		JMenu help = new JMenu("Pomoc");
+		JMenuItem helpItem = new JMenuItem("Instrukcje");
+		helpItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"Celem gry jest zdobycie największej ilości punktów stawiając flagi (PPM) tam, gdzie są miny. \n"
+										+ "Za każdą dobrze postawioną flagę (po skończeniu gry podświetloną na zielono) \n"
+										+ "dostaniejsz 1 pkt. Za każdą źle postawioną (po skończeniu gry podświetloną na czerwono) \n"
+										+ "-2 pkt. Kliknięcie LPM dotyka pola. Dotknięcie miny kończy grę, nie dostajesz punktów. \n"
+										+ "Dotknięcie pola bez miny odkrywa liczby mówiące o ilości min sąsiadujących z danym polem \n"
+										+ "(również po przekątnej). Kliknij \"zakończ\", gdy uważasz, że dobrze rozstawiłeś flagi.",
+								"Pomoc", JOptionPane.INFORMATION_MESSAGE);
+
+			}
+		});
+
 		JMenu newgame = new JMenu("Nowa gra");
-		
-		JMenuItem  easy = new JMenuItem("Łatwa");
+
+		JMenuItem easy = new JMenuItem("Mało bomb");
 		easy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game = new FieldController(model.Level.EASY);
-				initialize(); //reinitialzuj gre
+				initialize(); // reinitialzuj gre
 			}
 		});
-		JMenuItem  medium = new JMenuItem("Średnia");
+		JMenuItem medium = new JMenuItem("Średnia ilość bomb");
 		medium.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game = new FieldController(model.Level.NORMAL);
-				initialize(); //reinitialzuj gre
+				initialize(); // reinitialzuj gre
 			}
 		});
-		JMenuItem  hard = new JMenuItem("Trudna");
+		JMenuItem hard = new JMenuItem("Dużo bomb");
 		hard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game = new FieldController(model.Level.HARD);
-				initialize(); //reinitialzuj gre
+				initialize(); // reinitialzuj gre
 			}
 		});
 		JMenuItem exit = new JMenuItem("Zakończ	");
@@ -97,21 +125,26 @@ public class GUIWindow extends JFrame {
 				System.exit(0);
 			}
 		});
+		
+		
 		JMenuItem hiscore = new JMenuItem("HiScore");
 		hiscore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String s = "";
 				List<HiScoreRowModel> rows = Console.hiScore.getHiScore();
-				
-				for(int i=0; i < 10 ;i++) {
+
+				for (int i = 0; i < 10; i++) {
 					s += rows.get(i).getPosition() + ". ";
 					s += rows.get(i).getName();
 					s += "    ";
 					s += rows.get(i).getScore() + "\n";
 				}
-				JOptionPane.showMessageDialog(null, s, "HiScore", JOptionPane.CLOSED_OPTION);
+				JOptionPane.showMessageDialog(null, s, "HiScore",
+						JOptionPane.CLOSED_OPTION);
 			}
 		});
+		
+		
 		newgame.add(easy);
 		newgame.add(medium);
 		newgame.add(hard);
@@ -120,12 +153,10 @@ public class GUIWindow extends JFrame {
 		saper.add(exit);
 		menuBar.add(saper);
 		menuBar.add(zakoncz);
+		help.add(helpItem);
 		menuBar.add(help);
 		setJMenuBar(menuBar);
-		
-		
-		
-		
+
 	}
 
 	/**
@@ -133,7 +164,7 @@ public class GUIWindow extends JFrame {
 	 */
 	private void initialize() {
 		
-		this.setContentPane(getJContentPane(game.getSize(), game.getSize()));
+		this.setContentPane(getJContentPane(game.getSize()));
 		this.setTitle("Saper");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -164,18 +195,19 @@ public class GUIWindow extends JFrame {
 	}
 
 	/**
-	 * inicjalizuje panel z gra o odpowiedniej wielkosci
+	 * Tworzy panel z grą o odpowiedniej wielkosci
 	 * 
+	 * @param x int rozmiar planszy
 	 * @return javax.swing.JPanel
 	 */
-	private JPanel getJContentPane(int x, int y) {
+	private JPanel getJContentPane(int x) {
 		jContentPane = new JPanel();
-		jContentPane.setLayout(new GridLayout(x, y));
+		jContentPane.setLayout(new GridLayout(x, x));
 		return jContentPane;
 	}
 	
 	/**
-	 * Ustawia elemetny siatki przycikow zgodnie ze stanem gry
+	 * Ustawia elemetny siatki przyciskow zgodnie ze stanem gry
 	 */
 	private void update() {
 		FieldIs[][] board = game.makeArray();

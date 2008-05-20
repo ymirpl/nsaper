@@ -48,6 +48,8 @@ public class GUIWindow extends JFrame {
 		super();
 		//this.setSize(800, 600);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setTitle("Saper RC1");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		initialize();
 		
 		// ustawiamy menuski
@@ -95,7 +97,7 @@ public class GUIWindow extends JFrame {
 										+ "-2 pkt. Kliknięcie LPM dotyka pola. Dotknięcie miny kończy grę, nie dostajesz punktów. \n"
 										+ "Dotknięcie pola bez miny odkrywa liczby mówiące o ilości min sąsiadujących z danym polem \n"
 										+ "(również po przekątnej). Kliknij \"zakończ\", gdy uważasz, że dobrze rozstawiłeś flagi.",
-								"Pomoc", JOptionPane.INFORMATION_MESSAGE);
+								"Pomoc", JOptionPane.CLOSED_OPTION);
 
 			}
 		});
@@ -173,9 +175,6 @@ public class GUIWindow extends JFrame {
 	private void initialize() {
 		
 		this.setContentPane(getJContentPane(game.getSize()));
-		this.setTitle("Saper");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 
 		grid = new FieldButton[game.getSize()][game.getSize()]; // sitka przyciskow
 		

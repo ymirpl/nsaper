@@ -16,6 +16,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 import model.HiScoreRowModel;
 import controller.FieldController;
@@ -130,16 +131,20 @@ public class GUIWindow extends JFrame {
 		JMenuItem hiscore = new JMenuItem("HiScore");
 		hiscore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String s = "";
+				
+				// narzut wykonania na tyle maly, ze mozna za kadzym razem otwrcia okienka to robic
+				String[] columnNames = { "Lp.", "Imię", "Punkty" };
+				String[][] data = new String[10][3];
 				List<HiScoreRowModel> rows = Console.hiScore.getHiScore();
 
-				for (int i = 0; i < 10; i++) {
-					s += rows.get(i).getPosition() + ". ";
-					s += rows.get(i).getName();
-					s += "    ";
-					s += rows.get(i).getScore() + "\n";
+				for (int i = 0; i < 10; i++) { // towrzymy tabele wynikow
+					data[i][0] = ((Integer) rows.get(i).getPosition())
+							.toString();
+					data[i][1] = rows.get(i).getName();
+					data[i][2] = ((Integer) rows.get(i).getScore()).toString();
 				}
-				JOptionPane.showMessageDialog(null, s, "HiScore",
+				JTable table = new JTable(data, columnNames);
+				JOptionPane.showMessageDialog(null, table, "HiScore", // wyswietlamy ja
 						JOptionPane.CLOSED_OPTION);
 			}
 		});
@@ -251,12 +256,16 @@ public class GUIWindow extends JFrame {
 					grid[x][y].setText("8");
 				else
 					grid[x][y].setText(" ");
-				if (board[x][y] != FieldIs.HIDDEN && board[x][y] != FieldIs.FLAG  && board[x][y] != FieldIs.BOMB_FLAG) 
+				if (board[x][y] != FieldIs.HIDDEN
+						&& board[x][y] != FieldIs.FLAG
+						&& board[x][y] != FieldIs.BOMB_FLAG) {
 					grid[x][y].setBackground(Color.white);
+					grid[x][y].setIcon(null);
+				}
 			}
 		}
 		jContentPane.repaint(); //przerysuj gre
-		System.out.println("update!" + "game is "+ game.isValid());
+		 System.out.println("update!" + "game is "+ game.isValid()); //debug only
 	}
 
 }

@@ -35,6 +35,9 @@ public class GUIWindow extends JFrame {
 	private FieldButton[][] grid; // sitaka przyciskow
 
 	private JPanel jContentPane = null;
+	/**
+	 * Ikonki z <a href="http://tango.freedesktop.org/Tango_Desktop_Project">Tango Dekstop Project</a>
+	 */
 	private ImageIcon bombIcon = new ImageIcon("view/bomb.png"); // ikonka bomby
 	private ImageIcon flagIcon = new ImageIcon("view/flag.png"); // ikonka flagi
 

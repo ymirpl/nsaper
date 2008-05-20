@@ -87,11 +87,10 @@ public class FieldModel {
 	}
 
 	/**
-	 * Odkrywa pole (isVisible staje się true, odflagowuje się)
+	 * Odkrywa pole (isVisible staje się true)
 	 */
 	public void show() {
 		this.isVisible = true;
-		this.isFlagged = false;
 	}
 
 	/**

@@ -1,7 +1,7 @@
 package model;
 /**
  * Określa poziom trudności gry (ilość bomb na planszy). 
- * @author ymir
+ * @author Marcin Mincer
  * @since RC1
  *
  */

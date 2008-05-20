@@ -100,10 +100,12 @@ public class FieldController {
 	 */
 	public void flag(int x, int y) {
 		FieldModel f = board.getField(x, y);
-		if(f.isFlagged())
-			f.setFlagged(false);
-		else
-			f.setFlagged(true);
+		if (!f.isVisible()) { // tylko zakryte pola mozna flagowac
+			if (f.isFlagged())
+				f.setFlagged(false);
+			else
+				f.setFlagged(true);
+		}
 	}
 
 	/**

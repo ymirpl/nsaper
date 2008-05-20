@@ -237,6 +237,7 @@ public class GUIWindow extends JFrame {
 				else if (board[x][y] == FieldIs.BOMB) {
 					grid[x][y].setText("");
 					grid[x][y].setIcon(bombIcon);
+					grid[x][y].setBackground(Color.white);
 				}
 				else if (board[x][y] == FieldIs.ONE)
 					grid[x][y].setText("1");
@@ -258,7 +259,8 @@ public class GUIWindow extends JFrame {
 					grid[x][y].setText(" ");
 				if (board[x][y] != FieldIs.HIDDEN
 						&& board[x][y] != FieldIs.FLAG
-						&& board[x][y] != FieldIs.BOMB_FLAG) {
+						&& board[x][y] != FieldIs.BOMB_FLAG
+						&& board[x][y] != FieldIs.BOMB) {
 					grid[x][y].setBackground(Color.white);
 					grid[x][y].setIcon(null);
 				}

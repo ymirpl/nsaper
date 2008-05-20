@@ -1,7 +1,8 @@
 package model;
 /**
- * Okresla poziom trudnosc gry (ilosc bomb na planszy)
+ * Określa poziom trudności gry (ilość bomb na planszy). 
  * @author ymir
+ * @since RC1
  *
  */
 public enum Level {

@@ -30,7 +30,7 @@ public class BoardModel {
 	 * Konstruktor. Losuje zawartość planszy zgodnie z podanym rozmiarem.
 	 * Poziom trudonśsci określa ilość bomb.
 	 * @param a  int wymiar planszy
-	 * @param l  Level poziom trudności
+	 * @param l  {@link Level} poziom trudności
 	 */
 	public BoardModel(int a, Level l) {
 		this.size = a;
@@ -135,7 +135,7 @@ public class BoardModel {
 	 * Getter do pojedynczego pola z planszy.
 	 * @param x int kolumna
 	 * @param y int wiersz
-	 * @return FieldModel pole
+	 * @return {@link FieldModel} pole
 	 */
 	public FieldModel getField(int x, int y) {
 		return board[y][x];

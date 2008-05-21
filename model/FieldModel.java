@@ -87,9 +87,17 @@ public class FieldModel {
 	}
 
 	/**
-	 * Odkrywa pole (isVisible staje się true)
+	 * Odkrywa pole (isVisible staje się true, odflagowuje sie)
 	 */
 	public void show() {
+		this.isVisible = true;
+		this.isFlagged = false;
+	}
+	
+	/**
+	 * Odkrywa pole nie usuwajac flagi (na koniec gry).
+	 */
+	public void showInTheEnd() {
 		this.isVisible = true;
 	}
 

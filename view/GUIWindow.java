@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -46,11 +47,13 @@ public class GUIWindow extends JFrame {
 	 */
 	public GUIWindow() {
 		super();
-		//this.setSize(800, 600);
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		this.setTitle("Saper RC1");
+		this.setTitle("Saper RC1b2");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		initialize();
+
+		// ustawiamy zamaksymalizowane okienko
+		jContentPane.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
+
 		
 		// ustawiamy menuski
 		JMenuBar menuBar = new JMenuBar();
@@ -166,7 +169,7 @@ public class GUIWindow extends JFrame {
 		help.add(helpItem);
 		menuBar.add(help);
 		setJMenuBar(menuBar);
-
+		
 	}
 
 	/**

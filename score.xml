@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <score>
   <position id="1">
+    <name>Łukasz</name>
+    <points>41</points>
+  </position>
+  <position id="2">
     <name>ymirek</name>
     <points>7</points>
   </position>
-  <position id="2">
+  <position id="3">
     <name>Średniak</name>
     <points>3</points>
-  </position>
-  <position id="3">
-    <name>John</name>
-    <points>2</points>
   </position>
   <position id="4">
     <name>John</name>

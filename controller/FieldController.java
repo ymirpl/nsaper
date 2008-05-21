@@ -184,7 +184,7 @@ public class FieldController {
 			// pokaz wsie bomby
 			for (int j = 0; j < board.getSize(); j++) {
 				f = board.getField(j, i);
-				f.show();
+				f.showInTheEnd();
 			}
 	}
 	

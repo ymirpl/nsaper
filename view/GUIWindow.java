@@ -47,7 +47,7 @@ public class GUIWindow extends JFrame {
 	 */
 	public GUIWindow() {
 		super();
-		this.setTitle("Saper RC1b2");
+		this.setTitle("Saper RC1.1");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		initialize();
 

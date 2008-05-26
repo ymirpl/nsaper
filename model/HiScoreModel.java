@@ -30,6 +30,7 @@ public class HiScoreModel {
 	 * , jeśli go nie ma, towrzy taki plik wypełeniony przykładowymi danymi. 
 	 * 
 	 */
+
 	public HiScoreModel() {
 
 		SAXBuilder builder = new SAXBuilder();
@@ -38,8 +39,9 @@ public class HiScoreModel {
 		try {
 			xml = builder.build(new File("score.xml"));
 			Element score = xml.getRootElement();
-
-			List nodes = score.getChildren(); // jest plik, wczytujemy do
+			
+			@SuppressWarnings("unchecked")
+			List<Element> nodes = score.getChildren(); // jest plik, wczytujemy do
 												// tablicy
 
 			for (int i = 1; i <= 10; i++) {

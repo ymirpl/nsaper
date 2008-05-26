@@ -39,8 +39,8 @@ public class GUIWindow extends JFrame {
 	/**
 	 * Ikonki z <a href="http://tango.freedesktop.org/Tango_Desktop_Project">Tango Dekstop Project</a>
 	 */
-	private ImageIcon bombIcon = new ImageIcon("view/bomb.png"); // ikonka bomby
-	private ImageIcon flagIcon = new ImageIcon("view/flag.png"); // ikonka flagi
+	private ImageIcon bombIcon = new ImageIcon(this.getClass().getResource("/view/bomb.png")); // ikonka bomby
+	private ImageIcon flagIcon = new ImageIcon(this.getClass().getResource("/view/flag.png")); // ikonka flagi
 
 	/**
 	 * Konstruktor domyslny okienka
